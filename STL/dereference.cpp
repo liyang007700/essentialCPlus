@@ -12,7 +12,7 @@ elemType* find_pointer(elemType *first, const elemType *last, const elemType &va
 int main() {
   int *pi = find_pointer(ia, ia+8, ia[3]);
   cout << *pi << endl;
-  if (!svec.empty()) cout << "not empty";
+  if (!svec.empty()) cout << svec.capacity() << endl;
 }
 
 template <typename elemType>
