@@ -11,6 +11,7 @@ inline bool greaterThan(int a, int b) {
   return a > b ? true : false;
 }
 vector<int> filter_ver1(vector<int>& vec, const int filter_value, bool (*pred)(int, int));
+int count_occurs(const vector<int> &vec, int value);
 
 int main() {
   const int seq_size = 18;
@@ -22,20 +23,20 @@ int main() {
   }  
   display(pell_seq);
   // array list vector iterator
-  const int asize = 8;
-  int ia[asize] = {1, 1, 2, 3, 5, 8, 13, 21};
-  int *pia = find(ia, ia+asize, 13);
-  if (pia != ia+asize) cout << "find" << endl;
+  const int asize = 9;
+  int ia[asize] = {1, 1, 2, 3, 5, 8, 1, 13, 21};
+  // int *pia = find(ia, ia+asize, 13);
+  // if (pia != ia+asize) cout << "find" << endl;
 
   vector<int> ivec(ia, ia+asize);
-  vector<int>::iterator it;
-  it = find(ivec.begin(), ivec.end(), 2);
-  if (it != ivec.end()) cout << "find1" << endl;
+  // vector<int>::iterator it;
+  // it = find(ivec.begin(), ivec.end(), 2);
+  // if (it != ivec.end()) cout << "find1" << endl;
 
-  list<int> ilist(ia, ia+asize);
-  list<int>::iterator iter;
-  iter = find(ilist.begin(), ilist.end(), 3);
-  if (iter != ilist.end()) cout << "find2" << endl;
+  // list<int> ilist(ia, ia+asize);
+  // list<int>::iterator iter;
+  // iter = find(ilist.begin(), ilist.end(), 3);
+  // if (iter != ilist.end()) cout << "find2" << endl;
 
   // deque<int> a_line;
   // int ival;
@@ -54,6 +55,9 @@ int main() {
   cout << vec.size() << endl;
   const int& j = vec.at(0);
   cout << j << endl;
+
+  const int occur_count = count_occurs(ivec, 1);
+  cout << "count_occurs  " << occur_count << endl;
 }
 
 template <typename elemType>
@@ -66,14 +70,14 @@ void display(const vector<elemType> &vec) {
   cout << endl;
 }
 
-template <typename IterT, typename T>
-IterT
-find(IterT first, IterT last, const T &value) {
-  for(; first != last; ++first) {
-    if (value == *first) return first;
-  }
-  return 0;
-}
+// template <typename IterT, typename T>
+// IterT
+// find(IterT first, IterT last, const T &value) {
+//   for(; first != last; ++first) {
+//     if (value == *first) return first;
+//   }
+//   return 0;
+// }
 
 vector<int> filter_ver1(vector<int>& vec, const int filter_value, bool (*pred)(int, int)) {
   vector<int> nvec;
@@ -82,4 +86,14 @@ vector<int> filter_ver1(vector<int>& vec, const int filter_value, bool (*pred)(i
     if (pred(v, filter_value)) nvec.push_back(v);
   }
   return nvec;
+}
+
+int count_occurs(const vector<int> &vec, int value) {
+  vector<int>::const_iterator iter = vec.begin();
+  int occurs_count = 0;
+  while((iter = find(iter, vec.end(), value)) != vec.end()) {
+    ++occurs_count;
+    ++iter;
+  }
+  return occurs_count;
 }
